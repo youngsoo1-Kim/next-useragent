@@ -1,0 +1,48 @@
+{
+  "name": "next-useragent",
+  "version": "0.0.1",
+  "description": "",
+  "license": "MIT",
+  "readmeFilename": "README.md",
+  "homepage": "https://www.npmjs.com/package/next-useragent",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:tokuda109/next-useragent.git"
+  },
+  "bugs": {
+    "url": "https://github.com/tokuda109/next-useragent/issues"
+  },
+  "author": "Tsuyoshi Tokuda <tsuyoshi@tokuda.me>",
+  "keywords": [
+    "next",
+    "useragent"
+  ],
+  "scripts": {
+    "prepublish": "npm run build",
+    "build": "rollup -c rollup.config.js",
+    "lint": "tslint src/**/*.ts",
+    "test": "jest --config jest.config.js --runInBand"
+  },
+  "dependencies": {
+    "next": ">7.0.0",
+    "useragent": "^2.3.0"
+  },
+  "devDependencies": {
+    "@types/jest": "^24.0.0",
+    "@types/next": "^8.0.0",
+    "@types/react": "^16.8.0",
+    "@types/react-dom": "^16.8.0",
+    "@types/useragent": "^2.1.0",
+    "jest": "^24.7.0",
+    "react": "^16.8.0",
+    "react-dom": "^16.8.0",
+    "rollup": "^1.1.0",
+    "rollup-plugin-commonjs": "^9.2.0",
+    "rollup-plugin-typescript": "^1.0.0",
+    "ts-jest": "^24.0.0",
+    "tslib": "^1.9.0",
+    "tslint": "^5.11.0",
+    "tslint-config-airbnb": "^5.11.0",
+    "typescript": "^3.4.0"
+  }
+}
