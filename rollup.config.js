@@ -2,6 +2,7 @@
 import { join } from 'path'
 
 import commonjs from 'rollup-plugin-commonjs'
+import resolve from 'rollup-plugin-node-resolve'
 import typescript from 'rollup-plugin-typescript2'
 
 module.exports = {
@@ -14,9 +15,11 @@ module.exports = {
     'next',
     'react',
     'react-dom',
-    'useragent'
+    'ua-parser-js'
   ],
+  jsnext: true,
   plugins: [
+    resolve(),
     commonjs(),
     typescript({
       declarationDir: join(__dirname, 'dist')

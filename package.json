@@ -1,6 +1,6 @@
 {
   "name": "next-useragent",
-  "version": "0.0.4",
+  "version": "0.1.0",
   "description": "next-useragent parses browser user-agent strings for next.js.",
   "license": "MIT",
   "readmeFilename": "README.md",
@@ -27,19 +27,20 @@
   },
   "dependencies": {
     "next": ">7.0.0",
-    "useragent": "^2.3.0"
+    "ua-parser-js": "^0.7.19"
   },
   "devDependencies": {
     "@types/jest": "^24.0.0",
     "@types/next": "^8.0.0",
     "@types/react": "^16.8.0",
     "@types/react-dom": "^16.8.0",
-    "@types/useragent": "^2.1.0",
+    "@types/ua-parser-js": "^0.7.32",
     "jest": "^24.7.0",
     "react": "^16.8.0",
     "react-dom": "^16.8.0",
     "rollup": "^1.1.0",
     "rollup-plugin-commonjs": "^9.2.0",
+    "rollup-plugin-node-resolve": "^4.2.0",
     "rollup-plugin-typescript2": "^0.20.0",
     "ts-jest": "^24.0.0",
     "tslib": "^1.9.0",

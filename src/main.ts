@@ -1,85 +1,107 @@
 
 import { NextContext } from 'next'
-import * as useragent from 'useragent'
+import { UAParser } from 'ua-parser-js'
 
 export interface UserAgentType {
   source: string,
-  device: string,
-  deviceVersion: string,
+  deviceType: string,
+  deviceVendor: string,
   os: string,
   osVersion: string,
   browser: string,
   browserVersion: string,
+  isIphone: boolean,
+  isIpad: boolean,
   isMobile: boolean,
   isTablet: boolean,
   isDesktop: boolean,
-  isBot: boolean
+  isBot: boolean,
+  isChrome: boolean,
+  isFirefox: boolean,
+  isSafari: boolean,
+  isIE: boolean,
+  isMac: boolean,
+  isChromeOS: boolean,
+  isWindows: boolean,
+  isIos: boolean,
+  isAndroid: boolean
 }
 
 class UserAgent implements UserAgentType {
 
-  private agent: useragent.Agent
+  public source: string
+
+  public deviceType: string
+
+  public deviceVendor: string
+
+  public os: string
+
+  public osVersion: string
+
+  public browser: string
+
+  public browserVersion: string
+
+  public isIphone: boolean
+
+  public isIpad: boolean
+
+  public isMobile: boolean
+
+  public isTablet: boolean
+
+  public isDesktop: boolean
+
+  public isBot: boolean
+
+  public isChrome: boolean
+
+  public isFirefox: boolean
+
+  public isSafari: boolean
+
+  public isIE: boolean
+
+  public isMac: boolean
+
+  public isChromeOS: boolean
+
+  public isWindows: boolean
+
+  public isIos: boolean
+
+  public isAndroid: boolean
 
   constructor(ua: string) {
-    this.agent = useragent.parse(ua)
-  }
+    const result: IUAParser.IResult = new UAParser(ua).getResult()
 
-  get source(): string {
-    return this.agent.source
-  }
+    this.source = ua
 
-  get device(): string {
-    return this.agent.device.family
-  }
+    this.deviceType     = result.device.type
+    this.deviceVendor   = result.device.vendor
+    this.os             = result.os.name
+    this.osVersion      = result.os.version
+    this.browser        = result.browser.name
+    this.browserVersion = result.browser.version
 
-  get deviceVersion(): string {
-    return this.agent.device.toVersion()
-  }
+    this.isIphone   = this.deviceType === 'iPhone'
+    this.isIpad     = this.deviceType === 'iPad'
+    this.isMobile   = this.deviceType === 'mobile'
+    this.isTablet   = this.deviceType === 'tablet'
+    this.isDesktop  = !this.isTablet && !this.isMobile
+    this.isBot      = this.deviceType === 'Spider'
 
-  get os(): string {
-    return this.agent.os.family
-  }
+    this.isChrome   = this.browser === 'Chrome'
+    this.isFirefox  = this.browser === 'Firefox'
+    this.isSafari   = this.browser === 'Safari'
+    this.isIE       = this.browser === 'IE'
 
-  get osVersion(): string {
-    return this.agent.os.toVersion()
-  }
-
-  get browser(): string {
-    return this.agent.family
-  }
-
-  get browserVersion(): string {
-    return this.agent.toVersion()
-  }
-
-  get isMobile(): boolean {
-    return this.device === 'iPhone' ||
-      this.device === 'iPod' ||
-      this.browser === 'Opera Mobile' ||
-      this.browser === 'Opera Mini' ||
-      this.os === 'Android' ||
-      this.os === 'Firefox OS'
-  }
-
-  get isTablet(): boolean {
-    return this.device === 'iPad' ||
-      this.device === 'Kindle' ||
-      this.device === 'Kindle Fire' ||
-      this.device === 'Kindle Fire HD' ||
-      (this.os === 'Android' && (
-        this.source.indexOf('Mobile Safari') === -1 &&
-        this.browser !== 'Firefox Mobile'
-      ))
-  }
-
-  get isDesktop(): boolean {
-    return this.source.indexOf('Windows NT') > -1 ||
-      this.source.indexOf('Linux') > -1 ||
-      this.os === 'Mac OS X'
-  }
-
-  get isBot(): boolean {
-    return this.device === 'Spider'
+    this.isMac      = this.os === 'Mac OS X'
+    this.isChromeOS = this.os === 'Chromium OS'
+    this.isWindows  = this.os === 'Windows'
+    this.isIos      = this.os === 'iOS'
+    this.isAndroid  = this.os === 'Android'
   }
 }
 
