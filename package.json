@@ -1,10 +1,12 @@
 {
   "name": "next-useragent",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "",
   "license": "MIT",
   "readmeFilename": "README.md",
   "homepage": "https://www.npmjs.com/package/next-useragent",
+  "main": "dist/next-useragent.js",
+  "typings": "src/definitions.d.ts",
   "repository": {
     "type": "git",
     "url": "git@github.com:tokuda109/next-useragent.git"
