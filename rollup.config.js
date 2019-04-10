@@ -1,6 +1,8 @@
 
+import { join } from 'path'
+
 import commonjs from 'rollup-plugin-commonjs'
-import typescript from 'rollup-plugin-typescript'
+import typescript from 'rollup-plugin-typescript2'
 
 module.exports = {
   input: 'src/main.ts',
@@ -16,6 +18,8 @@ module.exports = {
   ],
   plugins: [
     commonjs(),
-    typescript()
+    typescript({
+      declarationDir: join(__dirname, 'dist')
+    })
   ]
 }

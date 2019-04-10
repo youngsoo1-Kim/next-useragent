@@ -3,5 +3,6 @@ example
 src
 test
 
+jest.config.js
 tsconfig.json
 tslint.json
