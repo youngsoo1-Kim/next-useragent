@@ -1,5 +1,12 @@
 This is intended as an overview of the major changes.
 
+## 0.2.0
+
+Released on April 13, 2019.
+
+* Added unittests
+* Supported bot useragent
+
 ## 0.1.0
 
 Released on April 10, 2019.
