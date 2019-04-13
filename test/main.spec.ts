@@ -9,6 +9,7 @@ import { parse } from '../src/main'
 const desktop = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.135 Safari/537.36 Edge/12.246'
 const ios8 = 'Mozilla/5.0 (iPhone; CPU iPhone OS 8_0 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) Version/8.0 Mobile/12A365 Safari/600.1.4'
 const android = 'Mozilla/5.0 (Linux; Android 6.0.1; SM-J700M Build/MMB29K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Mobile Safari/537.36'
+const mac_chrome = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3763.0 Safari/537.36'
 const bot = 'Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/MMB29P) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.96 Mobile Safari/537.36 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)'
 
 let navigatorStub
@@ -181,6 +182,58 @@ describe('main.ts', () => {
     expect(ua.isWindows).to.be.false
     expect(ua.isIos).to.be.false
     expect(ua.isAndroid).to.be.true
+    expect(ua.isBot).to.be.false
+  })
+
+  it('correctly parses Mac OSX (Chrome)', () => {
+    let ua = parse(makeServerCtx(mac_chrome) as NextContext)
+
+    expect(ua.browser).to.eql('Chrome')
+    expect(ua.deviceType).to.be.undefined
+    expect(ua.os).to.eql('Mac OS')
+    expect(ua.isMobile).to.be.false
+    expect(ua.isTablet).to.be.false
+    expect(ua.source).to.eql(mac_chrome)
+    expect(ua.deviceVendor).to.be.undefined
+    expect(ua.osVersion).to.eql(10)
+    expect(ua.browserVersion).to.eql(75)
+    expect(ua.isIphone).to.be.false
+    expect(ua.isIpad).to.be.false
+    expect(ua.isDesktop).to.be.true
+    expect(ua.isChrome).to.be.true
+    expect(ua.isFirefox).to.be.false
+    expect(ua.isSafari).to.be.false
+    expect(ua.isIE).to.be.false
+    expect(ua.isMac).to.be.true
+    expect(ua.isChromeOS).to.be.false
+    expect(ua.isWindows).to.be.false
+    expect(ua.isIos).to.be.false
+    expect(ua.isAndroid).to.be.false
+    expect(ua.isBot).to.be.false
+
+    ua = parse(makeClientCtx(mac_chrome) as NextContext)
+
+    expect(ua.browser).to.eql('Chrome')
+    expect(ua.deviceType).to.be.undefined
+    expect(ua.os).to.eql('Mac OS')
+    expect(ua.isMobile).to.be.false
+    expect(ua.isTablet).to.be.false
+    expect(ua.source).to.eql(mac_chrome)
+    expect(ua.deviceVendor).to.be.undefined
+    expect(ua.osVersion).to.eql(10)
+    expect(ua.browserVersion).to.eql(75)
+    expect(ua.isIphone).to.be.false
+    expect(ua.isIpad).to.be.false
+    expect(ua.isDesktop).to.be.true
+    expect(ua.isChrome).to.be.true
+    expect(ua.isFirefox).to.be.false
+    expect(ua.isSafari).to.be.false
+    expect(ua.isIE).to.be.false
+    expect(ua.isMac).to.be.true
+    expect(ua.isChromeOS).to.be.false
+    expect(ua.isWindows).to.be.false
+    expect(ua.isIos).to.be.false
+    expect(ua.isAndroid).to.be.false
     expect(ua.isBot).to.be.false
   })
 

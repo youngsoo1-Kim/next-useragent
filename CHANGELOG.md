@@ -1,5 +1,11 @@
 This is intended as an overview of the major changes.
 
+## 0.2.1
+
+Released on April 13, 2019.
+
+* Fixed Mac OS X issue
+
 ## 0.2.0
 
 Released on April 13, 2019.

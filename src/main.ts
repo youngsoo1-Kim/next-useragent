@@ -48,7 +48,7 @@ export interface UserAgent {
 
 /**
  * @param ctx - Context passed from getInitialProps method.
- * @returns The UserAgent instance.
+ * @returns Parsed useragent object.
  */
 function parse(ctx: NextContext): UserAgent {
   let phase: string
@@ -88,7 +88,7 @@ function parse(ctx: NextContext): UserAgent {
     isFirefox:      browser === 'Firefox',
     isSafari:       browser === 'Safari',
     isIE:           browser === 'IE',
-    isMac:          os === 'Mac OS X',
+    isMac:          os === 'Mac OS',
     isChromeOS:     os === 'Chromium OS',
     isWindows:      os === 'Windows',
     isAndroid:      os === 'Android',
