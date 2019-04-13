@@ -19,10 +19,10 @@ Example usage:
 
 ```
 import React from 'react'
-import { UserAgentType, parse } from 'next-useragent'
+import { UserAgent, parse } from 'next-useragent'
 
 interface Props {
-  ua: UserAgentType
+  ua: UserAgent
 }
 
 export default class IndexPage extends React.Component<Props> {
@@ -50,7 +50,6 @@ export default class IndexPage extends React.Component<Props> {
         <li>is mobile?: { ua.isMobile ? 'yes' : 'no' }</li>
         <li>is tablet?: { ua.isTablet ? 'yes' : 'no' }</li>
         <li>is desktop?: { ua.isDesktop ? 'yes' : 'no' }</li>
-        <li>is bot?: { ua.isBot ? 'yes' : 'no' }</li>
         <li>is Chrome?: { ua.isChrome ? 'yes' : 'no' }</li>
         <li>is Firefox?: { ua.isFirefox ? 'yes' : 'no' }</li>
         <li>is Safari?: { ua.isSafari ? 'yes' : 'no' }</li>
@@ -60,6 +59,7 @@ export default class IndexPage extends React.Component<Props> {
         <li>is Windows?: { ua.isWindows ? 'yes' : 'no' }</li>
         <li>is iOS?: { ua.isIos ? 'yes' : 'no' }</li>
         <li>is Android?: { ua.isAndroid ? 'yes' : 'no' }</li>
+        <li>is bot?: { ua.isBot ? 'yes' : 'no' }</li>
       </ul>
     )
   }

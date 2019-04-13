@@ -2,123 +2,100 @@
 import { NextContext } from 'next'
 import { UAParser } from 'ua-parser-js'
 
-export interface UserAgentType {
-  source: string,
-  deviceType: string,
-  deviceVendor: string,
-  os: string,
-  osVersion: string,
-  browser: string,
-  browserVersion: string,
-  isIphone: boolean,
-  isIpad: boolean,
-  isMobile: boolean,
-  isTablet: boolean,
-  isDesktop: boolean,
-  isBot: boolean,
-  isChrome: boolean,
-  isFirefox: boolean,
-  isSafari: boolean,
-  isIE: boolean,
-  isMac: boolean,
-  isChromeOS: boolean,
-  isWindows: boolean,
-  isIos: boolean,
-  isAndroid: boolean
-}
+const BOT_UA = [
+  '\\+https:\\/\\/developers.google.com\\/\\+\\/web\\/snippet\\/',
+  'googlebot',
+  'baiduspider',
+  'gurujibot',
+  'yandexbot',
+  'slurp',
+  'msnbot',
+  'bingbot',
+  'facebookexternalhit',
+  'linkedinbot',
+  'twitterbot',
+  'slackbot',
+  'telegrambot',
+  'applebot',
+  'pingdom',
+  'tumblr',
+]
 
-class UserAgent implements UserAgentType {
-
-  public source: string
-
-  public deviceType: string
-
-  public deviceVendor: string
-
-  public os: string
-
-  public osVersion: string
-
-  public browser: string
-
-  public browserVersion: string
-
-  public isIphone: boolean
-
-  public isIpad: boolean
-
-  public isMobile: boolean
-
-  public isTablet: boolean
-
-  public isDesktop: boolean
-
-  public isBot: boolean
-
-  public isChrome: boolean
-
-  public isFirefox: boolean
-
-  public isSafari: boolean
-
-  public isIE: boolean
-
-  public isMac: boolean
-
-  public isChromeOS: boolean
-
-  public isWindows: boolean
-
-  public isIos: boolean
-
-  public isAndroid: boolean
-
-  constructor(ua: string) {
-    const result: IUAParser.IResult = new UAParser(ua).getResult()
-
-    this.source = ua
-
-    this.deviceType     = result.device.type
-    this.deviceVendor   = result.device.vendor
-    this.os             = result.os.name
-    this.osVersion      = result.os.version
-    this.browser        = result.browser.name
-    this.browserVersion = result.browser.version
-
-    this.isIphone   = this.deviceType === 'iPhone'
-    this.isIpad     = this.deviceType === 'iPad'
-    this.isMobile   = this.deviceType === 'mobile'
-    this.isTablet   = this.deviceType === 'tablet'
-    this.isDesktop  = !this.isTablet && !this.isMobile
-    this.isBot      = this.deviceType === 'Spider'
-
-    this.isChrome   = this.browser === 'Chrome'
-    this.isFirefox  = this.browser === 'Firefox'
-    this.isSafari   = this.browser === 'Safari'
-    this.isIE       = this.browser === 'IE'
-
-    this.isMac      = this.os === 'Mac OS X'
-    this.isChromeOS = this.os === 'Chromium OS'
-    this.isWindows  = this.os === 'Windows'
-    this.isIos      = this.os === 'iOS'
-    this.isAndroid  = this.os === 'Android'
-  }
+export interface UserAgent {
+  readonly source: string,
+  readonly deviceType?: string,
+  readonly deviceVendor?: string,
+  readonly os: string,
+  readonly osVersion: number,
+  readonly browser: string,
+  readonly browserVersion: number,
+  readonly isIphone: boolean,
+  readonly isIpad: boolean,
+  readonly isMobile: boolean,
+  readonly isTablet: boolean,
+  readonly isDesktop: boolean,
+  readonly isBot: boolean,
+  readonly isChrome: boolean,
+  readonly isFirefox: boolean,
+  readonly isSafari: boolean,
+  readonly isIE: boolean,
+  readonly isMac: boolean,
+  readonly isChromeOS: boolean,
+  readonly isWindows: boolean,
+  readonly isIos: boolean,
+  readonly isAndroid: boolean
 }
 
 /**
  * @param ctx - Context passed from getInitialProps method.
  * @returns The UserAgent instance.
  */
-function parse(ctx: NextContext): UserAgentType {
-  let userAgentPhase: string
+function parse(ctx: NextContext): UserAgent {
+  let phase: string
 
   if (typeof ctx.req !== 'undefined') {
-    userAgentPhase = ctx.req.headers['user-agent']
+    phase = ctx.req.headers['user-agent']
   } else if (typeof navigator !== 'undefined') {
-    userAgentPhase = navigator.userAgent
+    phase = navigator.userAgent
   }
 
-  return new UserAgent(userAgentPhase)
+  const result: IUAParser.IResult = new UAParser(phase).getResult()
+
+  const regex = new RegExp(`(${BOT_UA.join('|')})`, 'ig')
+
+  const browser: string = result.browser.name
+  const deviceType: string = result.device.type
+  const os: string = result.os.name
+  const isMobile: boolean = deviceType === 'mobile'
+  const isTablet: boolean = deviceType === 'tablet'
+  const isIos: boolean = os === 'iOS'
+
+  const ua: UserAgent = {
+    browser,
+    deviceType,
+    os,
+    isMobile,
+    isTablet,
+    isIos,
+    source:         phase,
+    deviceVendor:   result.device.vendor,
+    osVersion:      parseInt(result.os.version, 10),
+    browserVersion: parseFloat(result.browser.version),
+    isIphone:       isMobile && isIos,
+    isIpad:         isTablet && isIos,
+    isDesktop:      !isMobile && !isTablet,
+    isChrome:       browser === 'Chrome',
+    isFirefox:      browser === 'Firefox',
+    isSafari:       browser === 'Safari',
+    isIE:           browser === 'IE',
+    isMac:          os === 'Mac OS X',
+    isChromeOS:     os === 'Chromium OS',
+    isWindows:      os === 'Windows',
+    isAndroid:      os === 'Android',
+    isBot:          regex.test(phase.toLowerCase()),
+  }
+
+  return ua
 }
 
-export { UserAgent, parse }
+export { parse }

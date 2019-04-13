@@ -1,56 +1,238 @@
 /* tslint:disable */
 
+import { expect } from 'chai'
 import { NextContext } from 'next'
-import { UserAgent, parse } from '../src/main'
+import sinon from 'sinon'
+
+import { parse } from '../src/main'
 
 const desktop = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.135 Safari/537.36 Edge/12.246'
 const ios8 = 'Mozilla/5.0 (iPhone; CPU iPhone OS 8_0 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) Version/8.0 Mobile/12A365 Safari/600.1.4'
 const android = 'Mozilla/5.0 (Linux; Android 6.0.1; SM-J700M Build/MMB29K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Mobile Safari/537.36'
-const serverCtx = { 'req': { 'headers': { 'user-agent': android } } }
-const clientCtx = {  }
+const bot = 'Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/MMB29P) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.96 Mobile Safari/537.36 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)'
+
+let navigatorStub
+
+function makeServerCtx(ua: string): Object {
+  return { 'req': { 'headers': { 'user-agent': ua } } }
+}
+
+function makeClientCtx(ua: string): Object {
+  navigatorStub = sinon.stub(navigator, 'userAgent').value(ua)
+  return {  }
+}
 
 describe('main.ts', () => {
 
-  it('correctly parses desktop', () => {
-    const ua = new UserAgent(desktop)
-
-    expect(ua.source).toBe(desktop)
-    expect(ua.device).toBe('Other')
-    expect(ua.os).toBe('Windows')
-    expect(ua.browser).toBe('Edge')
+  afterEach(() => {
+    navigatorStub.restore()
   })
 
-  it('correctly parses iOS8', () => {
-    const ua = new UserAgent(ios8)
+  it('correctly parses desktop', () => {
+    let ua = parse(makeServerCtx(desktop) as NextContext)
 
-    expect(ua.source).toBe(ios8)
-    expect(ua.device).toBe('iPhone')
-    expect(ua.os).toBe('iOS')
-    expect(ua.browser).toBe('Mobile Safari')
+    expect(ua.browser).to.eql('Edge')
+    expect(ua.deviceType).to.be.undefined
+    expect(ua.os).to.eql('Windows')
+    expect(ua.isMobile).to.be.false
+    expect(ua.isTablet).to.be.false
+    expect(ua.source).to.eql(desktop)
+    expect(ua.deviceVendor).to.be.undefined
+    expect(ua.osVersion).to.eql(10)
+    expect(ua.browserVersion).to.eql(12.246)
+    expect(ua.isIphone).to.be.false
+    expect(ua.isIpad).to.be.false
+    expect(ua.isDesktop).to.be.true
+    expect(ua.isChrome).to.be.false
+    expect(ua.isFirefox).to.be.false
+    expect(ua.isSafari).to.be.false
+    expect(ua.isIE).to.be.false
+    expect(ua.isMac).to.be.false
+    expect(ua.isChromeOS).to.be.false
+    expect(ua.isWindows).to.be.true
+    expect(ua.isIos).to.be.false
+    expect(ua.isAndroid).to.be.false
+    expect(ua.isBot).to.be.false
+
+    ua = parse(makeClientCtx(desktop) as NextContext)
+
+    expect(ua.browser).to.eql('Edge')
+    expect(ua.deviceType).to.be.undefined
+    expect(ua.os).to.eql('Windows')
+    expect(ua.isMobile).to.be.false
+    expect(ua.isTablet).to.be.false
+    expect(ua.source).to.eql(desktop)
+    expect(ua.deviceVendor).to.be.undefined
+    expect(ua.osVersion).to.eql(10)
+    expect(ua.browserVersion).to.eql(12.246)
+    expect(ua.isIphone).to.be.false
+    expect(ua.isIpad).to.be.false
+    expect(ua.isDesktop).to.be.true
+    expect(ua.isChrome).to.be.false
+    expect(ua.isFirefox).to.be.false
+    expect(ua.isSafari).to.be.false
+    expect(ua.isIE).to.be.false
+    expect(ua.isMac).to.be.false
+    expect(ua.isChromeOS).to.be.false
+    expect(ua.isWindows).to.be.true
+    expect(ua.isIos).to.be.false
+    expect(ua.isAndroid).to.be.false
+    expect(ua.isBot).to.be.false
+  })
+
+  it('correctly parses iOS8 (iPhone)', () => {
+    let ua = parse(makeServerCtx(ios8) as NextContext)
+
+    expect(ua.browser).to.eql('Mobile Safari')
+    expect(ua.deviceType).to.eql('mobile')
+    expect(ua.os).to.eql('iOS')
+    expect(ua.isMobile).to.be.true
+    expect(ua.isTablet).to.be.false
+    expect(ua.source).to.eql(ios8)
+    expect(ua.deviceVendor).to.eql('Apple')
+    expect(ua.osVersion).to.eql(8)
+    expect(ua.browserVersion).to.eql(8)
+    expect(ua.isIphone).to.be.true
+    expect(ua.isIpad).to.be.false
+    expect(ua.isDesktop).to.be.false
+    expect(ua.isChrome).to.be.false
+    expect(ua.isFirefox).to.be.false
+    expect(ua.isSafari).to.be.false
+    expect(ua.isIE).to.be.false
+    expect(ua.isMac).to.be.false
+    expect(ua.isChromeOS).to.be.false
+    expect(ua.isWindows).to.be.false
+    expect(ua.isIos).to.be.true
+    expect(ua.isAndroid).to.be.false
+    expect(ua.isBot).to.be.false
+
+    ua = parse(makeClientCtx(ios8) as NextContext)
+
+    expect(ua.browser).to.eql('Mobile Safari')
+    expect(ua.deviceType).to.eql('mobile')
+    expect(ua.os).to.eql('iOS')
+    expect(ua.isMobile).to.be.true
+    expect(ua.isTablet).to.be.false
+    expect(ua.source).to.eql(ios8)
+    expect(ua.deviceVendor).to.eql('Apple')
+    expect(ua.osVersion).to.eql(8)
+    expect(ua.browserVersion).to.eql(8)
+    expect(ua.isIphone).to.be.true
+    expect(ua.isIpad).to.be.false
+    expect(ua.isDesktop).to.be.false
+    expect(ua.isChrome).to.be.false
+    expect(ua.isFirefox).to.be.false
+    expect(ua.isSafari).to.be.false
+    expect(ua.isIE).to.be.false
+    expect(ua.isMac).to.be.false
+    expect(ua.isChromeOS).to.be.false
+    expect(ua.isWindows).to.be.false
+    expect(ua.isIos).to.be.true
+    expect(ua.isAndroid).to.be.false
+    expect(ua.isBot).to.be.false
   })
 
   it('correctly parses Android', () => {
-    const ua = new UserAgent(android)
+    let ua = parse(makeServerCtx(android) as NextContext)
 
-    expect(ua.source).toBe(android)
-    expect(ua.device).toBe('Samsung SM-J700M')
-    expect(ua.os).toBe('Android')
-    expect(ua.browser).toBe('Chrome Mobile')
+    expect(ua.browser).to.eql('Chrome')
+    expect(ua.deviceType).to.eql('mobile')
+    expect(ua.os).to.eql('Android')
+    expect(ua.isMobile).to.be.true
+    expect(ua.isTablet).to.be.false
+    expect(ua.source).to.eql(android)
+    expect(ua.deviceVendor).to.eql('Samsung')
+    expect(ua.osVersion).to.eql(6)
+    expect(ua.browserVersion).to.eql(69)
+    expect(ua.isIphone).to.be.false
+    expect(ua.isIpad).to.be.false
+    expect(ua.isDesktop).to.be.false
+    expect(ua.isChrome).to.be.true
+    expect(ua.isFirefox).to.be.false
+    expect(ua.isSafari).to.be.false
+    expect(ua.isIE).to.be.false
+    expect(ua.isMac).to.be.false
+    expect(ua.isChromeOS).to.be.false
+    expect(ua.isWindows).to.be.false
+    expect(ua.isIos).to.be.false
+    expect(ua.isAndroid).to.be.true
+    expect(ua.isBot).to.be.false
+
+    ua = parse(makeClientCtx(android) as NextContext)
+
+    expect(ua.browser).to.eql('Chrome')
+    expect(ua.deviceType).to.eql('mobile')
+    expect(ua.os).to.eql('Android')
+    expect(ua.isMobile).to.be.true
+    expect(ua.isTablet).to.be.false
+    expect(ua.source).to.eql(android)
+    expect(ua.deviceVendor).to.eql('Samsung')
+    expect(ua.osVersion).to.eql(6)
+    expect(ua.browserVersion).to.eql(69)
+    expect(ua.isIphone).to.be.false
+    expect(ua.isIpad).to.be.false
+    expect(ua.isDesktop).to.be.false
+    expect(ua.isChrome).to.be.true
+    expect(ua.isFirefox).to.be.false
+    expect(ua.isSafari).to.be.false
+    expect(ua.isIE).to.be.false
+    expect(ua.isMac).to.be.false
+    expect(ua.isChromeOS).to.be.false
+    expect(ua.isWindows).to.be.false
+    expect(ua.isIos).to.be.false
+    expect(ua.isAndroid).to.be.true
+    expect(ua.isBot).to.be.false
   })
 
-  it('', () => {
-    let ua = parse(serverCtx as NextContext)
+  it('correctly parses Googlebot', () => {
+    let ua = parse(makeServerCtx(bot) as NextContext)
 
-    expect(ua.source).toBe(android)
-    expect(ua.device).toBe('Samsung SM-J700M')
-    expect(ua.os).toBe('Android')
-    expect(ua.browser).toBe('Chrome Mobile')
+    expect(ua.browser).to.eql('Chrome')
+    expect(ua.deviceType).to.eql('mobile')
+    expect(ua.os).to.eql('Android')
+    expect(ua.isMobile).to.be.true
+    expect(ua.isTablet).to.be.false
+    expect(ua.source).to.eql(bot)
+    expect(ua.deviceVendor).to.eql('LG')
+    expect(ua.osVersion).to.eql(6)
+    expect(ua.browserVersion).to.eql(41)
+    expect(ua.isIphone).to.be.false
+    expect(ua.isIpad).to.be.false
+    expect(ua.isDesktop).to.be.false
+    expect(ua.isChrome).to.be.true
+    expect(ua.isFirefox).to.be.false
+    expect(ua.isSafari).to.be.false
+    expect(ua.isIE).to.be.false
+    expect(ua.isMac).to.be.false
+    expect(ua.isChromeOS).to.be.false
+    expect(ua.isWindows).to.be.false
+    expect(ua.isIos).to.be.false
+    expect(ua.isAndroid).to.be.true
+    expect(ua.isBot).to.be.true
 
-    ua = parse(clientCtx as NextContext)
+    ua = parse(makeClientCtx(bot) as NextContext)
 
-    expect(ua.source).toBe('Mozilla/5.0 (darwin) AppleWebKit/537.36 (KHTML, like Gecko) jsdom/11.12.0')
-    expect(ua.device).toBe('Other')
-    expect(ua.os).toBe('Other')
-    expect(ua.browser).toBe('Other')
+    expect(ua.browser).to.eql('Chrome')
+    expect(ua.deviceType).to.eql('mobile')
+    expect(ua.os).to.eql('Android')
+    expect(ua.isMobile).to.be.true
+    expect(ua.isTablet).to.be.false
+    expect(ua.source).to.eql(bot)
+    expect(ua.deviceVendor).to.eql('LG')
+    expect(ua.osVersion).to.eql(6)
+    expect(ua.browserVersion).to.eql(41)
+    expect(ua.isIphone).to.be.false
+    expect(ua.isIpad).to.be.false
+    expect(ua.isDesktop).to.be.false
+    expect(ua.isChrome).to.be.true
+    expect(ua.isFirefox).to.be.false
+    expect(ua.isSafari).to.be.false
+    expect(ua.isIE).to.be.false
+    expect(ua.isMac).to.be.false
+    expect(ua.isChromeOS).to.be.false
+    expect(ua.isWindows).to.be.false
+    expect(ua.isIos).to.be.false
+    expect(ua.isAndroid).to.be.true
+    expect(ua.isBot).to.be.true
   })
 })
