@@ -70,7 +70,7 @@ function parse(ctx: NextContext): UserAgent {
   const isTablet: boolean = deviceType === 'tablet'
   const isIos: boolean = os === 'iOS'
 
-  const ua: UserAgent = {
+  const ua: UserAgent = Object.freeze({
     browser,
     deviceType,
     os,
@@ -93,7 +93,7 @@ function parse(ctx: NextContext): UserAgent {
     isWindows:      os === 'Windows',
     isAndroid:      os === 'Android',
     isBot:          regex.test(phase.toLowerCase()),
-  }
+  })
 
   return ua
 }
