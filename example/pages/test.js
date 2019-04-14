@@ -17,7 +17,7 @@ export default class IndexPage extends React.Component {
     return (
       <div>
         <p>isServer: { isServer ? 'yes' : 'no' }</p>
-        <p><Link href="/test"><a>Go to test</a></Link></p>
+        <p><Link href="/"><a>Go to index</a></Link></p>
         <ul>
           <li>Original source: { ua.source }</li>
           <li>Device Type: { ua.deviceType }</li>
