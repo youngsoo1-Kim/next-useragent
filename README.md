@@ -1,6 +1,6 @@
 # next-useragent
 
-`next-useragent` parses browser [user-agent strings](http://useragentstring.com/) for [next.js](https://nextjs.org/).
+`next-useragent` parses browser user-agent strings for [next.js](https://nextjs.org/).
 
 [![npm](https://nodei.co/npm/next-useragent.png?downloads=true&stars=true)](https://nodei.co/npm/next-useragent)
 
@@ -13,24 +13,24 @@ $ npm install next-useragent
 ## Usage
 
 `next-useragent` is simple to use.  
-First parse a string with `parse` and then access the fields of `UserAgent` for the required information.
+Give access to user-agent details anywhere using `withUserAgent` method.
+
+* Passed as an `ua` property in the context of the `getInitialProps` method.
+* Providing the following props to your component as `ua`.
 
 Example usage:
 
 ```
 import React from 'react'
-import { UserAgent, parse } from 'next-useragent'
+import { UserAgentProps, parse } from 'next-useragent'
 
-interface Props {
-  ua: UserAgent
-}
-
-export default class IndexPage extends React.Component<Props> {
+class IndexPage extends React.Component<UserAgentProps> {
 
   static async getInitialProps(ctx) {
-    const ua = parse(ctx)
+    // ctx.ua
+    // => `UserAgent` type object.
 
-    return { ua }
+    return {}
   }
 
   render() {
@@ -64,6 +64,8 @@ export default class IndexPage extends React.Component<Props> {
     )
   }
 }
+
+export default withUserAgent(IndexPage)
 ```
 
 ## License

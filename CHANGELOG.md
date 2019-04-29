@@ -1,5 +1,12 @@
 This is intended as an overview of the major changes.
 
+## 0.3.0
+
+Released on April 29, 2019.
+
+* Added access to user-agent from `withUserAgent` method
+* The `parse` method has been made private.
+
 ## 0.2.1
 
 Released on April 13, 2019.

@@ -1,25 +1,21 @@
 
-import Link from 'next/link'
-import { parse } from 'next-useragent'
+import { withUserAgent } from 'next-useragent'
 import React from 'react'
 
-export default class IndexPage extends React.Component {
+class IndexPage extends React.Component {
 
   static async getInitialProps(ctx) {
-    const ua = parse(ctx)
-
-    return { ua: ua, isServer: typeof ctx.req !== 'undefined' }
+    return { useragent: ctx.ua.source }
   }
 
   render() {
-    const { ua, isServer } = this.props
+    const { ua, useragent } = this.props
 
     return (
       <div>
-        <p>isServer: { isServer ? 'yes' : 'no' }</p>
-        <p><Link href="/test"><a>Go to test</a></Link></p>
         <ul>
-          <li>Original source: { ua.source }</li>
+          <li>Original source (Server side): { useragent }</li>
+          <li>Original source (Client side): { ua.source }</li>
           <li>Device Type: { ua.deviceType }</li>
           <li>Device Vendor: { ua.deviceVendor }</li>
           <li>OS Name: { ua.os }</li>
@@ -46,3 +42,5 @@ export default class IndexPage extends React.Component {
     )
   }
 }
+
+export default withUserAgent(IndexPage)
