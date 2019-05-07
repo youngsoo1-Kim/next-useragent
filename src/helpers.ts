@@ -3,6 +3,12 @@ import { UAParser } from 'ua-parser-js'
 
 import { UserAgent, BOT_UA } from './constants'
 
+/**
+ * Get the information of an useragent string.
+ *
+ * @param phase user agent strings.
+ * @returns parsed information.
+ */
 export function parse(phase: string): UserAgent {
 
   const result: IUAParser.IResult = new UAParser(phase).getResult()

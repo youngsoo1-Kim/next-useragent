@@ -1,3 +1,4 @@
+/* tslint:disable: variable-name */
 
 import { NextComponentType, NextContext } from 'next'
 import * as React from 'react'
@@ -5,29 +6,31 @@ import * as React from 'react'
 import { UserAgent } from './constants'
 import { parse } from './helpers'
 
-export interface UserAgentProps {
+export interface WithUserAgentProps {
   ua?: UserAgent
 }
 
-export interface UserAgentContext extends NextContext {
+export interface WithUserAgentContext extends NextContext {
   ua?: UserAgent
 }
 
-export function withUserAgent<Props extends UserAgentProps, InitialProps extends UserAgentProps>(
-  ComposedComponent: NextComponentType<Props, InitialProps>
+export function withUserAgent<Props extends WithUserAgentProps, InitialProps extends {}>(
+  ComposedComponent: NextComponentType<Props, InitialProps>,
 ): NextComponentType<Props, InitialProps> {
 
   const name: string = ComposedComponent.displayName || ComposedComponent.name
+
+  let isServer: boolean = false
 
   let ua: UserAgent
 
   class WithUserAgentWrapper extends React.Component<Props> {
     static displayName = `withUserAgent(${name})`
 
-    static getInitialProps?: any
+    static getInitialProps?: (ctx: WithUserAgentContext) => Promise<InitialProps>
 
     public render(): JSX.Element {
-      if (!ua && navigator) {
+      if (!ua && !isServer) {
         ua = parse(navigator.userAgent)
       }
 
@@ -39,17 +42,18 @@ export function withUserAgent<Props extends UserAgentProps, InitialProps extends
     }
   }
 
-  WithUserAgentWrapper.getInitialProps = async (ctx: UserAgentContext) => {
-    let initialProps: Object = {}
+  WithUserAgentWrapper.getInitialProps = async (ctx: WithUserAgentContext): Promise<InitialProps> => {
+    let initialProps = {}
 
     if (typeof ctx.req !== 'undefined') {
+      isServer = true
       ua = parse(ctx.req.headers['user-agent'])
     } else if (typeof navigator !== 'undefined') {
       ua = parse(navigator.userAgent)
     }
 
     if (ComposedComponent.getInitialProps) {
-      ctx.ua = Object.assign({}, ua)
+      ctx.ua = Object.assign({}, ua) as UserAgent
 
       initialProps = await ComposedComponent.getInitialProps(ctx)
 
@@ -58,7 +62,7 @@ export function withUserAgent<Props extends UserAgentProps, InitialProps extends
       }
     }
 
-    return initialProps
+    return initialProps as InitialProps
   }
 
   return WithUserAgentWrapper

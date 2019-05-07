@@ -1,5 +1,6 @@
 
 export interface UserAgent {
+  // The original user agent string.
   readonly source: string,
   readonly deviceType?: string,
   readonly deviceVendor?: string,

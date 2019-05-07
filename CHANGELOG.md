@@ -1,5 +1,11 @@
 This is intended as an overview of the major changes.
 
+## 0.4.0
+
+Released on May 8, 2019.
+
+* Clean up main source codes
+
 ## 0.3.1
 
 Released on April 30, 2019.

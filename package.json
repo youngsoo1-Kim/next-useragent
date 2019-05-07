@@ -1,6 +1,6 @@
 {
   "name": "next-useragent",
-  "version": "0.3.1",
+  "version": "0.4.0",
   "description": "next-useragent parses browser user-agent strings for next.js.",
   "license": "MIT",
   "readmeFilename": "README.md",
@@ -20,9 +20,8 @@
     "useragent"
   ],
   "scripts": {
-    "prepublish": "npm run build",
     "build": "rollup -c rollup.config.js",
-    "lint": "tslint src/**/*.ts",
+    "lint": "tslint 'src/**/*.ts{,x}'",
     "test": "jest --config jest.config.js --runInBand"
   },
   "dependencies": {

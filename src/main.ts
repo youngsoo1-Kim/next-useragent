@@ -1,3 +1,3 @@
 
 export { UserAgent } from './constants'
-export { UserAgentProps, withUserAgent } from './withUserAgent'
+export { WithUserAgentProps, WithUserAgentContext, withUserAgent } from './withUserAgent'

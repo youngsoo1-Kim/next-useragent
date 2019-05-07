@@ -6,11 +6,11 @@ import * as React from 'react'
 
 const Adapter: any = require('enzyme-adapter-react-16')
 
-import { UserAgentProps, withUserAgent } from '../src/withUserAgent'
+import { WithUserAgentProps, withUserAgent } from '../src/withUserAgent'
 
 configure({ adapter: new Adapter() })
 
-class TestComponent extends React.Component<UserAgentProps> {
+class TestComponent extends React.Component<WithUserAgentProps> {
 
   render() {
     const { ua } = this.props
