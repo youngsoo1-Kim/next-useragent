@@ -1,8 +1,14 @@
 This is intended as an overview of the major changes.
 
+## 0.4.1
+
+Released on May 7, 2019.
+
+* Update README.md
+
 ## 0.4.0
 
-Released on May 8, 2019.
+Released on May 7, 2019.
 
 * Clean up main source codes
 

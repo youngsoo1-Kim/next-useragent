@@ -22,23 +22,21 @@ Example usage:
 
 ```
 import React from 'react'
-import { UserAgentProps, withUserAgent } from 'next-useragent'
+import { WithUserAgentProps, withUserAgent } from 'next-useragent'
 
-class IndexPage extends React.Component<UserAgentProps> {
+class IndexPage extends React.Component<WithUserAgentProps> {
 
   static async getInitialProps(ctx) {
-    // ctx.ua
-    // => `UserAgent` type object.
-
-    return {}
+    return { useragent: ctx.ua.source }
   }
 
   render() {
-    const { ua } = this.props
+    const { ua, useragent } = this.props
 
     return (
       <ul>
-        <li>Original source: { ua.source }</li>
+        <li>Original source (Server side): { useragent }</li>
+        <li>Original source (Client side): { ua.source }</li>
         <li>Device Type: { ua.deviceType }</li>
         <li>Device Vendor: { ua.deviceVendor }</li>
         <li>OS Name: { ua.os }</li>
