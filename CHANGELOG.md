@@ -1,5 +1,12 @@
 This is intended as an overview of the major changes.
 
+## 0.4.2
+
+Released on May 8, 2019.
+
+* Update README.md
+* Minify files in distribution
+
 ## 0.4.1
 
 Released on May 7, 2019.

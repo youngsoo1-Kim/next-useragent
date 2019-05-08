@@ -15,8 +15,8 @@ $ npm install next-useragent
 `next-useragent` is simple to use.  
 Give access to user-agent details anywhere using `withUserAgent` method.
 
-* As ua property of context of `getInitialProps`.
-* As component ua property of `this.props`
+* Passed as an argument of getInitialProps method.
+* Passed as property of React component.
 
 Example usage:
 
