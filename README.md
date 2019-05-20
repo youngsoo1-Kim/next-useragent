@@ -1,4 +1,4 @@
-# next-useragent
+# next-useragent [![CircleCI](https://circleci.com/gh/tokuda109/next-useragent.svg)](https://circleci.com/gh/tokuda109/next-useragent)
 
 `next-useragent` parses browser user-agent strings for [next.js](https://nextjs.org/).
 
