@@ -24,7 +24,11 @@ Example usage:
 
 ```
 import React from 'react'
+import dynamic from 'next/dynamic'
 import { WithUserAgentProps, withUserAgent } from 'next-useragent'
+
+const DesktopContent = dynamic(() => import('./desktop-content'))
+const MobileContent = dynamic(() => import('./mobile-content'))
 
 class IndexPage extends React.Component<WithUserAgentProps> {
 
@@ -36,36 +40,48 @@ class IndexPage extends React.Component<WithUserAgentProps> {
     const { ua, useragent } = this.props
 
     return (
-      <ul>
-        <li>Original source (Server side): { useragent }</li>
-        <li>Original source (Client side): { ua.source }</li>
-        <li>Device Type: { ua.deviceType }</li>
-        <li>Device Vendor: { ua.deviceVendor }</li>
-        <li>OS Name: { ua.os }</li>
-        <li>OS Version: { ua.osVersion }</li>
-        <li>Browser Name: { ua.browser }</li>
-        <li>Browser Version: { ua.browserVersion }</li>
-        <li>is iPhone?: { ua.isIphone ? 'yes' : 'no' }</li>
-        <li>is iPad?: { ua.isIpad ? 'yes' : 'no' }</li>
-        <li>is mobile?: { ua.isMobile ? 'yes' : 'no' }</li>
-        <li>is tablet?: { ua.isTablet ? 'yes' : 'no' }</li>
-        <li>is desktop?: { ua.isDesktop ? 'yes' : 'no' }</li>
-        <li>is Chrome?: { ua.isChrome ? 'yes' : 'no' }</li>
-        <li>is Firefox?: { ua.isFirefox ? 'yes' : 'no' }</li>
-        <li>is Safari?: { ua.isSafari ? 'yes' : 'no' }</li>
-        <li>is Internet Explorer?: { ua.isIE ? 'yes' : 'no' }</li>
-        <li>is Mac?: { ua.isMac ? 'yes' : 'no' }</li>
-        <li>is ChromeOS?: { ua.isChromeOS ? 'yes' : 'no' }</li>
-        <li>is Windows?: { ua.isWindows ? 'yes' : 'no' }</li>
-        <li>is iOS?: { ua.isIos ? 'yes' : 'no' }</li>
-        <li>is Android?: { ua.isAndroid ? 'yes' : 'no' }</li>
-        <li>is bot?: { ua.isBot ? 'yes' : 'no' }</li>
-      </ul>
+      <>
+        <p>{ useragent }</p>
+        { ua.isMobile ? (
+        <MobileContent />
+        ) : (
+        <DesktopContent />
+        ) }
+      </>
     )
   }
 }
 
 export default withUserAgent(IndexPage)
+```
+
+The parsed objects looks like the following:
+
+```
+{
+  source: 'Mozilla/5.0 (iPhone; CPU iPhone OS 8_0 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) Version/8.0 Mobile/12A365 Safari/600.1.4',
+  deviceType: 'mobile',
+  deviceVendor: 'Apple',
+  os: 'iOS',
+  osVersion: 8,
+  browser: 'Mobile Safari',
+  browserVersion: 8,
+  isIphone: true,
+  isIpad: false,
+  isMobile: true,
+  isTablet: false,
+  isDesktop: false,
+  isChrome: false,
+  isFirefox: false,
+  isSafari: true,
+  isIE: false,
+  isMac: false,
+  isChromeOS: false,
+  isWindows: false,
+  isIos: false,
+  isAndroid: false,
+  isBot: false
+}
 ```
 
 ## License
