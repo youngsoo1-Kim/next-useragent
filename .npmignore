@@ -1,4 +1,6 @@
 
+.circleci
+.github
 .rpt2_cache
 .editorconfig
 .gitignore
