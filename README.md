@@ -2,8 +2,6 @@
 
 `next-useragent` parses browser user-agent strings for [next.js](https://nextjs.org/).
 
-> This package is under development and API might change before v1 is released.
-
 [![npm](https://nodei.co/npm/next-useragent.png?downloads=true&stars=true)](https://nodei.co/npm/next-useragent)
 
 ## Installation
