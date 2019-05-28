@@ -1,5 +1,24 @@
 This is intended as an overview of the major changes.
 
+## 1.0.2
+
+Released on May 28, 2019.
+
+* Update CHANGELOG.md
+
+## 1.0.1
+
+Released on May 28, 2019.
+
+* Update README.md
+
+## 1.0.0
+
+Released on May 28, 2019.
+
+* Update README.md
+* Run the unittest & lint with CircleCI
+
 ## 0.4.2
 
 Released on May 8, 2019.
