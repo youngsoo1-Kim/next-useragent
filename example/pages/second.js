@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { withUserAgent } from 'next-useragent'
 import React from 'react'
 
-class IndexPage extends React.Component {
+class SecondPage extends React.Component {
 
   static async getInitialProps(ctx) {
     return { useragent: ctx.ua.source, isServer: !!ctx.req }
@@ -23,10 +23,10 @@ class IndexPage extends React.Component {
         <p>Desktop</p>
         ) }
 
-        <Link href="/second"><a>Go to second.</a></Link>
+        <Link href="/"><a>Go to index.</a></Link>
       </>
     )
   }
 }
 
-export default withUserAgent(IndexPage)
+export default withUserAgent(SecondPage)

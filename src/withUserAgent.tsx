@@ -20,8 +20,6 @@ export function withUserAgent<Props extends WithUserAgentProps, InitialProps ext
 
   const name: string = ComposedComponent.displayName || ComposedComponent.name
 
-  let isServer: boolean = false
-
   let ua: UserAgent
 
   class WithUserAgentWrapper extends React.Component<Props> {
@@ -30,7 +28,7 @@ export function withUserAgent<Props extends WithUserAgentProps, InitialProps ext
     static getInitialProps?: (ctx: WithUserAgentContext) => Promise<InitialProps>
 
     public render(): JSX.Element {
-      if (!ua && !isServer) {
+      if (!ua && typeof navigator !== 'undefined') {
         ua = parse(navigator.userAgent)
       }
 
@@ -44,13 +42,15 @@ export function withUserAgent<Props extends WithUserAgentProps, InitialProps ext
 
   WithUserAgentWrapper.getInitialProps = async (ctx: WithUserAgentContext): Promise<InitialProps> => {
     let initialProps = {}
+    let uaString = ''
 
     if (typeof ctx.req !== 'undefined') {
-      isServer = true
-      ua = parse(ctx.req.headers['user-agent'])
+      uaString = ctx.req.headers['user-agent']
     } else if (typeof navigator !== 'undefined') {
-      ua = parse(navigator.userAgent)
+      uaString = navigator.userAgent
     }
+
+    ua = parse(uaString)
 
     if (ComposedComponent.getInitialProps) {
       ctx.ua = Object.assign({}, ua) as UserAgent
