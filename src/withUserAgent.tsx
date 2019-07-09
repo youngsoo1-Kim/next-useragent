@@ -28,8 +28,8 @@ export function withUserAgent<Props extends WithUserAgentProps, InitialProps ext
     static getInitialProps?: (ctx: WithUserAgentContext) => Promise<InitialProps>
 
     public render(): JSX.Element {
-      if (!ua && typeof navigator !== 'undefined') {
-        ua = parse(navigator.userAgent)
+      if (!ua && typeof window !== 'undefined') {
+        ua = parse(window.navigator.userAgent)
       }
 
       return (
@@ -46,8 +46,8 @@ export function withUserAgent<Props extends WithUserAgentProps, InitialProps ext
 
     if (typeof ctx.req !== 'undefined') {
       uaString = ctx.req.headers['user-agent']
-    } else if (typeof navigator !== 'undefined') {
-      uaString = navigator.userAgent
+    } else if (typeof window !== 'undefined') {
+      uaString = window.navigator.userAgent
     }
 
     ua = parse(uaString)
