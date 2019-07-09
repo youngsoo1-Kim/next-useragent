@@ -2,7 +2,7 @@ This is intended as an overview of the major changes.
 
 ## 1.1.0
 
-Released on June XX, 2019.
+Released on July 9, 2019.
 
 * Fix `ReferenceError: navigator is not defined` #1
 
