@@ -23,7 +23,7 @@ Released on May 28, 2019.
 Released on May 28, 2019.
 
 * Update README.md
-* Run the unittest & lint with CircleCI
+* Run unittest & lint with CircleCI
 
 ## 0.4.2
 
