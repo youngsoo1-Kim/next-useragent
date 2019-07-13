@@ -1,5 +1,11 @@
 This is intended as an overview of the major changes.
 
+## 1.1.1
+
+Released on July 13, 2019.
+
+* Update lodash for security
+
 ## 1.1.0
 
 Released on July 9, 2019.
