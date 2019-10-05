@@ -1,5 +1,12 @@
 This is intended as an overview of the major changes.
 
+## 2.0.0
+
+Released on October 5, 2019.
+
+* Fix for Next.js 9
+* Switch the linter from TSLint to ESLint
+
 ## 1.1.1
 
 Released on July 13, 2019.

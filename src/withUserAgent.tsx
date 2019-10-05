@@ -1,22 +1,22 @@
 /* tslint:disable: variable-name */
 
-import { NextComponentType, NextContext } from 'next'
+import { NextComponentType, NextPageContext } from 'next'
 import * as React from 'react'
 
 import { UserAgent } from './constants'
 import { parse } from './helpers'
 
-export interface WithUserAgentProps {
-  ua?: UserAgent
+export interface WithUserAgentProps extends JSX.IntrinsicAttributes {
+  ua?: UserAgent,
 }
 
-export interface WithUserAgentContext extends NextContext {
-  ua?: UserAgent
+export interface WithUserAgentContext extends NextPageContext {
+  ua?: UserAgent,
 }
 
 export function withUserAgent<Props extends WithUserAgentProps, InitialProps extends {}>(
-  ComposedComponent: NextComponentType<Props, InitialProps>,
-): NextComponentType<Props, InitialProps> {
+  ComposedComponent: NextComponentType<WithUserAgentContext, InitialProps, Props>,
+): NextComponentType<WithUserAgentContext, InitialProps, Props> {
 
   const name: string = ComposedComponent.displayName || ComposedComponent.name
 
@@ -27,7 +27,7 @@ export function withUserAgent<Props extends WithUserAgentProps, InitialProps ext
 
     static getInitialProps?: (ctx: WithUserAgentContext) => Promise<InitialProps>
 
-    public render(): JSX.Element {
+    public render(): React.ReactNode {
       if (!ua && typeof window !== 'undefined') {
         ua = parse(window.navigator.userAgent)
       }
@@ -40,12 +40,12 @@ export function withUserAgent<Props extends WithUserAgentProps, InitialProps ext
     }
   }
 
-  WithUserAgentWrapper.getInitialProps = async (ctx: WithUserAgentContext): Promise<InitialProps> => {
+  WithUserAgentWrapper.getInitialProps = async (context: WithUserAgentContext): Promise<InitialProps> => {
     let initialProps = {}
     let uaString = ''
 
-    if (typeof ctx.req !== 'undefined') {
-      uaString = ctx.req.headers['user-agent']
+    if (typeof context.req !== 'undefined') {
+      uaString = context.req.headers['user-agent']
     } else if (typeof window !== 'undefined') {
       uaString = window.navigator.userAgent
     }
@@ -53,12 +53,12 @@ export function withUserAgent<Props extends WithUserAgentProps, InitialProps ext
     ua = parse(uaString)
 
     if (ComposedComponent.getInitialProps) {
-      ctx.ua = Object.assign({}, ua) as UserAgent
+      context.ua = Object.assign({}, ua) as UserAgent
 
-      initialProps = await ComposedComponent.getInitialProps(ctx)
+      initialProps = await ComposedComponent.getInitialProps(context)
 
-      if (ctx.ua) {
-        delete ctx.ua
+      if (context.ua) {
+        delete context.ua
       }
     }
 

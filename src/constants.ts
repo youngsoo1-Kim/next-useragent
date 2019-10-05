@@ -22,7 +22,7 @@ export interface UserAgent {
   readonly isChromeOS: boolean,
   readonly isWindows: boolean,
   readonly isIos: boolean,
-  readonly isAndroid: boolean
+  readonly isAndroid: boolean,
 }
 
 export const BOT_UA = [
