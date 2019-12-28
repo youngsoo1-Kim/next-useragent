@@ -1,5 +1,11 @@
 This is intended as an overview of the major changes.
 
+## 1.1.2
+
+Released on December 28, 2019.
+
+* Update serialize-javascript for security
+
 ## 1.1.1
 
 Released on July 13, 2019.
