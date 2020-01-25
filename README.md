@@ -22,7 +22,7 @@ Give access to user-agent details anywhere using `withUserAgent` method.
 
 Example usage:
 
-```
+```jsx
 import React from 'react'
 import dynamic from 'next/dynamic'
 import { WithUserAgentProps, withUserAgent } from 'next-useragent'
