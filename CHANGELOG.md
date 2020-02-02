@@ -1,5 +1,12 @@
 This is intended as an overview of the major changes.
 
+## 2.0.2
+
+Released on February 2, 2020.
+
+* Dependencies update
+* Readme update by @Myoxocephalus
+
 ## 2.0.1
 
 Released on December 28, 2019.
