@@ -146,4 +146,26 @@ describe('helpers.ts', () => {
     expect(ua.isAndroid).to.be.true
     expect(ua.isBot).to.be.true
   })
+
+  it('correctly parses null ua string', () => {
+    let ua = parse(undefined)
+
+    expect(ua.isMobile).to.be.false
+    expect(ua.isTablet).to.be.false
+    expect(ua.source).to.be.undefined
+    expect(ua.deviceVendor).to.be.undefined
+    expect(ua.isIphone).to.be.false
+    expect(ua.isIpad).to.be.false
+    expect(ua.isDesktop).to.be.true
+    expect(ua.isChrome).to.be.false
+    expect(ua.isFirefox).to.be.false
+    expect(ua.isSafari).to.be.false
+    expect(ua.isIE).to.be.false
+    expect(ua.isMac).to.be.false
+    expect(ua.isChromeOS).to.be.false
+    expect(ua.isWindows).to.be.false
+    expect(ua.isIos).to.be.false
+    expect(ua.isAndroid).to.be.false
+    expect(ua.isBot).to.be.false
+  })
 })
