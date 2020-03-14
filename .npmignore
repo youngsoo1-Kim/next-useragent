@@ -1,13 +1,19 @@
 
 .circleci
+.dependabot
 .github
 .rpt2_cache
 .editorconfig
+.eslintignore
+.eslintrc
 .gitignore
 
 example
 src
 test
+
+CHANGELOG.md
+README.md
 
 jest.config.js
 rollup.config.js
