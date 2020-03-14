@@ -14,6 +14,7 @@ export function parse(phase: string): UserAgent {
   const result: IUAParser.IResult = new UAParser(phase).getResult()
 
   const regex = new RegExp(`(${BOT_UA.join('|')})`, 'ig')
+  const isBot = phase ? regex.test(phase.toLowerCase()) : false
 
   const browser: string = result.browser.name
   const deviceType: string = result.device.type
@@ -44,7 +45,7 @@ export function parse(phase: string): UserAgent {
     isChromeOS:     os === 'Chromium OS',
     isWindows:      os === 'Windows',
     isAndroid:      os === 'Android',
-    isBot:          regex.test(phase.toLowerCase()),
+    isBot:          isBot,
   })
 
   return ua
