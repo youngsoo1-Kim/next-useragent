@@ -1,5 +1,12 @@
 This is intended as an overview of the major changes.
 
+## 2.1.1
+
+Released on April 10, 2020.
+
+* Security update [#94](https://github.com/tokuda109/next-useragent/pull/94)
+* Some dependencies update
+
 ## 2.1.0
 
 Released on March 14, 2020.
