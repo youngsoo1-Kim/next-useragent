@@ -1,5 +1,11 @@
 This is intended as an overview of the major changes.
 
+## 2.1.2
+
+Released on May 6, 2020.
+
+* Some dependencies update
+
 ## 2.1.1
 
 Released on April 10, 2020.
