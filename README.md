@@ -20,9 +20,9 @@ Give access to user-agent details anywhere using `withUserAgent` method.
 * Passed as an argument of getInitialProps method.
 * Passed as property of React component.
 
-Example usage:
+### HOCs
 
-```jsx
+```tsx
 import React from 'react'
 import dynamic from 'next/dynamic'
 import { WithUserAgentProps, withUserAgent } from 'next-useragent'
@@ -54,6 +54,46 @@ class IndexPage extends React.Component<WithUserAgentProps> {
 
 export default withUserAgent(IndexPage)
 ```
+
+### Hooks
+
+```tsx
+import React from 'react'
+import dynamic from 'next/dynamic'
+import { WithUserAgentProps, useUserAgent, withUserAgent } from 'next-useragent'
+
+const DesktopContent = dynamic(() => import('./desktop-content'))
+const MobileContent = dynamic(() => import('./mobile-content'))
+
+class IndexPage extends React.Component<WithUserAgentProps> {
+  render() {
+    const { ua, useragent } = this.props
+
+    return (
+      <>
+        <p>{ useragent }</p>
+        { ua.isMobile ? (
+        <MobileContent />
+        ) : (
+        <DesktopContent />
+        ) }
+      </>
+    )
+  }
+}
+
+export function getServerSideProps(context) {
+  const ua = useUserAgent(context.req.headers['user-agent'])
+
+  return {
+    props: { ua, useragent: ua.source }
+  }
+}
+
+export default withUserAgent(IndexPage)
+```
+
+### parsed objects
 
 The parsed objects looks like the following:
 
