@@ -40,19 +40,19 @@ export function withUserAgent<Props extends WithUserAgentProps, InitialProps ext
     }
   }
 
-  WithUserAgentWrapper.getInitialProps = async (context: WithUserAgentContext): Promise<InitialProps> => {
-    let initialProps = {}
-    let uaString = ''
+  if (ComposedComponent.getInitialProps) {
+    WithUserAgentWrapper.getInitialProps = async (context: WithUserAgentContext): Promise<InitialProps> => {
+      let initialProps = {}
+      let uaString = ''
 
-    if (typeof context.req !== 'undefined') {
-      uaString = context.req.headers['user-agent']
-    } else if (typeof window !== 'undefined') {
-      uaString = window.navigator.userAgent
-    }
+      if (typeof context.req !== 'undefined') {
+        uaString = context.req.headers['user-agent']
+      } else if (typeof window !== 'undefined') {
+        uaString = window.navigator.userAgent
+      }
 
-    ua = parse(uaString)
+      ua = parse(uaString)
 
-    if (ComposedComponent.getInitialProps) {
       context.ua = Object.assign({}, ua) as UserAgent
 
       initialProps = await ComposedComponent.getInitialProps(context)
@@ -60,9 +60,9 @@ export function withUserAgent<Props extends WithUserAgentProps, InitialProps ext
       if (context.ua) {
         delete context.ua
       }
-    }
 
-    return initialProps as InitialProps
+      return initialProps as InitialProps
+    }
   }
 
   return WithUserAgentWrapper
