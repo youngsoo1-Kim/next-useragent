@@ -1,5 +1,12 @@
 This is intended as an overview of the major changes.
 
+## 2.2.0
+
+Released on August 10, 2020.
+
+* Fix `getServerSideProps` error and add useUserAgent hook [#177](https://github.com/tokuda109/next-useragent/issues/177)
+* Some dependencies update
+
 ## 2.1.4
 
 Released on August 4, 2020.
