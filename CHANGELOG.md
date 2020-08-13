@@ -1,6 +1,6 @@
 This is intended as an overview of the major changes.
 
-## 2.2.1
+## 2.2.2
 
 Released on August 13, 2020.
 
