@@ -17,7 +17,7 @@ export function parse(phase: string): UserAgent {
   const isBot = phase ? regex.test(phase.toLowerCase()) : false
 
   const browser: string = result.browser.name
-  const deviceType: string = result.device.type
+  const deviceType: string = result.device.type || null
   const os: string = result.os.name
   const isMobile: boolean = deviceType === 'mobile'
   const isTablet: boolean = deviceType === 'tablet'
@@ -31,7 +31,7 @@ export function parse(phase: string): UserAgent {
     isTablet,
     isIos,
     source:         phase,
-    deviceVendor:   result.device.vendor,
+    deviceVendor:   result.device.vendor || null,
     osVersion:      parseInt(result.os.version, 10),
     browserVersion: parseFloat(result.browser.version),
     isIphone:       isMobile && isIos,
