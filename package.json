@@ -28,6 +28,7 @@
     "kind-of": ">=6.0.3",
     "minimist": ">=1.2.5",
     "next": ">=9.3.4",
+    "node-fetch": ">=2.6.1",
     "ua-parser-js": "0.7.21"
   },
   "devDependencies": {
