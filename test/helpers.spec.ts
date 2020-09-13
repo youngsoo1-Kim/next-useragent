@@ -16,12 +16,12 @@ describe('helpers.ts', () => {
     let ua = parse(desktop)
 
     expect(ua.browser).to.eql('Edge')
-    expect(ua.deviceType).to.be.undefined
+    expect(ua.deviceType).to.be.null
     expect(ua.os).to.eql('Windows')
     expect(ua.isMobile).to.be.false
     expect(ua.isTablet).to.be.false
     expect(ua.source).to.eql(desktop)
-    expect(ua.deviceVendor).to.be.undefined
+    expect(ua.deviceVendor).to.be.null
     expect(ua.osVersion).to.eql(10)
     expect(ua.browserVersion).to.eql(12.246)
     expect(ua.isIphone).to.be.false
@@ -97,12 +97,12 @@ describe('helpers.ts', () => {
     let ua = parse(mac_chrome)
 
     expect(ua.browser).to.eql('Chrome')
-    expect(ua.deviceType).to.be.undefined
+    expect(ua.deviceType).to.be.null
     expect(ua.os).to.eql('Mac OS')
     expect(ua.isMobile).to.be.false
     expect(ua.isTablet).to.be.false
     expect(ua.source).to.eql(mac_chrome)
-    expect(ua.deviceVendor).to.be.undefined
+    expect(ua.deviceVendor).to.be.null
     expect(ua.osVersion).to.eql(10)
     expect(ua.browserVersion).to.eql(75)
     expect(ua.isIphone).to.be.false
@@ -153,7 +153,7 @@ describe('helpers.ts', () => {
     expect(ua.isMobile).to.be.false
     expect(ua.isTablet).to.be.false
     expect(ua.source).to.be.undefined
-    expect(ua.deviceVendor).to.be.undefined
+    expect(ua.deviceVendor).to.be.null
     expect(ua.isIphone).to.be.false
     expect(ua.isIpad).to.be.false
     expect(ua.isDesktop).to.be.true

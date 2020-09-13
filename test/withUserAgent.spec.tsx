@@ -2,7 +2,7 @@
 
 import { expect } from 'chai'
 import { configure, mount } from 'enzyme'
-import * as React from 'react'
+import React from 'react'
 
 const Adapter: any = require('enzyme-adapter-react-16')
 

@@ -25,8 +25,6 @@ export function withUserAgent<Props extends WithUserAgentProps, InitialProps ext
   class WithUserAgentWrapper extends React.Component<Props> {
     static displayName = `withUserAgent(${name})`
 
-    static getInitialProps?: (ctx: WithUserAgentContext) => Promise<InitialProps>
-
     public render(): React.ReactNode {
       if (!ua && typeof window !== 'undefined') {
         ua = parse(window.navigator.userAgent)
@@ -41,7 +39,7 @@ export function withUserAgent<Props extends WithUserAgentProps, InitialProps ext
   }
 
   if (ComposedComponent.getInitialProps) {
-    WithUserAgentWrapper.getInitialProps = async (context: WithUserAgentContext): Promise<InitialProps> => {
+    (WithUserAgentWrapper as NextComponentType).getInitialProps = async (context: WithUserAgentContext): Promise<InitialProps> => {
       let initialProps = {}
       let uaString = ''
 
