@@ -23,7 +23,8 @@ class IndexPage extends React.Component {
         <p>Desktop</p>
         ) }
 
-        <Link href="/second"><a>Go to second.</a></Link>
+        <Link href="/second"><a>Go to second.</a></Link><br />
+        <Link href="/server-side-props"><a>Go to server side props page.</a></Link>
       </>
     )
   }
