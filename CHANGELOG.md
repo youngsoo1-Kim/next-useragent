@@ -1,5 +1,12 @@
 This is intended as an overview of the major changes.
 
+## 2.3.0
+
+Released on September 13, 2020.
+
+* Vulnerability update `node-fetch`
+* Fix serialization error on SSR by @alieslamifard [#190](https://github.com/tokuda109/next-useragent/pull/190), [#195](https://github.com/tokuda109/next-useragent/pull/195)
+
 ## 2.2.2
 
 Released on August 13, 2020.
