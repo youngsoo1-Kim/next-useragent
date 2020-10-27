@@ -1,5 +1,12 @@
 This is intended as an overview of the major changes.
 
+## 2.3.1
+
+Released on October 27, 2020.
+
+* Vulnerability update `object-path`
+* Some dependencies update
+
 ## 2.3.0
 
 Released on September 13, 2020.
