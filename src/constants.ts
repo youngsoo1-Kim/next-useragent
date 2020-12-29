@@ -8,6 +8,8 @@ export interface UserAgent {
   readonly osVersion: number,
   readonly browser: string,
   readonly browserVersion: number,
+  readonly engine: string,
+  readonly engineVersion: number,
   readonly isIphone: boolean,
   readonly isIpad: boolean,
   readonly isMobile: boolean,
