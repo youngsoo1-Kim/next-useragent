@@ -14,7 +14,7 @@ export interface WithUserAgentContext extends NextPageContext {
   ua?: UserAgent,
 }
 
-export function withUserAgent<Props extends WithUserAgentProps, InitialProps extends {}>(
+export function withUserAgent<Props extends WithUserAgentProps, InitialProps>(
   ComposedComponent: NextComponentType<WithUserAgentContext, InitialProps, Props>,
 ): NextComponentType<WithUserAgentContext, InitialProps, Props> {
 
