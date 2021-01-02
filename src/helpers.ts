@@ -19,6 +19,7 @@ export function parse(phase: string): UserAgent {
   const browser: string = result.browser.name
   const deviceType: string = result.device.type || null
   const os: string = result.os.name
+  const engine: string = result.engine.name
   const isMobile: boolean = deviceType === 'mobile'
   const isTablet: boolean = deviceType === 'tablet'
   const isIos: boolean = os === 'iOS'
@@ -27,6 +28,7 @@ export function parse(phase: string): UserAgent {
     browser,
     deviceType,
     os,
+    engine,
     isMobile,
     isTablet,
     isIos,
@@ -34,6 +36,7 @@ export function parse(phase: string): UserAgent {
     deviceVendor:   result.device.vendor || null,
     osVersion:      parseInt(result.os.version, 10),
     browserVersion: parseFloat(result.browser.version),
+    engineVersion:  parseFloat(result.engine.version),
     isIphone:       isMobile && isIos,
     isIpad:         isTablet && isIos,
     isDesktop:      !isMobile && !isTablet,
