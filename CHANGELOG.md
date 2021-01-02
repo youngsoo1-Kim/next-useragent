@@ -1,5 +1,12 @@
 This is intended as an overview of the major changes.
 
+## 2.3.2
+
+Released on January 02, 2021.
+
+* Vulnerability update `node-notifier`
+* Some dependencies update
+
 ## 2.3.1
 
 Released on October 27, 2020.
