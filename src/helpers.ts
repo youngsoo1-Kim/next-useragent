@@ -11,7 +11,7 @@ import { UserAgent, BOT_UA } from './constants'
  */
 export function parse(phase: string): UserAgent {
 
-  const result: IUAParser.IResult = new UAParser(phase).getResult()
+  const result: UAParser.IResult = new UAParser(phase).getResult()
 
   const regex = new RegExp(`(${BOT_UA.join('|')})`, 'ig')
   const isBot = phase ? regex.test(phase.toLowerCase()) : false
