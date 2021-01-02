@@ -1,5 +1,11 @@
 This is intended as an overview of the major changes.
 
+## 2.4.0
+
+Released on January 02, 2021.
+
+* Add support for exposing engine data from ua-parser-js [#255](https://github.com/tokuda109/next-useragent/issues/255) by @etler
+
 ## 2.3.2
 
 Released on January 02, 2021.
