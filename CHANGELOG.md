@@ -1,5 +1,12 @@
 This is intended as an overview of the major changes.
 
+## 2.4.1
+
+Released on April 30, 2021.
+
+* Some dependencies update
+* Frozen verion of ua-parser-js [#336](https://github.com/tokuda109/next-useragent/issues/336) by @KODerFunk
+
 ## 2.4.0
 
 Released on January 02, 2021.
