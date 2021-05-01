@@ -1,10 +1,6 @@
-# next-useragent [![CircleCI](https://circleci.com/gh/tokuda109/next-useragent.svg?style=svg)](https://circleci.com/gh/tokuda109/next-useragent)
-
-:warning: Version 2 of this library will work only with Next.js 9. If you're using Next.js 6-8 you can use previous versions. :warning:
+# next-useragent
 
 `next-useragent` parses browser user-agent strings for [next.js](https://nextjs.org/).
-
-[![npm](https://nodei.co/npm/next-useragent.png?downloads=true&stars=true)](https://nodei.co/npm/next-useragent)
 
 ## Installation
 
