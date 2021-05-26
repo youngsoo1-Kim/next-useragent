@@ -1,5 +1,11 @@
 This is intended as an overview of the major changes.
 
+## 2.5.0
+
+Released on May 25, 2021.
+
+* Drop next.js version 9 support.
+
 ## 2.4.1
 
 Released on April 30, 2021.
