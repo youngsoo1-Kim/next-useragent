@@ -6,15 +6,15 @@ import { UserAgent, BOT_UA } from './constants'
 /**
  * Get the information of an useragent string.
  *
- * @param phase user agent strings.
+ * @param phrase user agent strings.
  * @returns parsed information.
  */
-export function parse(phase: string): UserAgent {
+export function parse(phrase: string): UserAgent {
 
-  const result: UAParser.IResult = new UAParser(phase).getResult()
+  const result: UAParser.IResult = new UAParser(phrase).getResult()
 
   const regex = new RegExp(`(${BOT_UA.join('|')})`, 'ig')
-  const isBot = phase ? regex.test(phase.toLowerCase()) : false
+  const isBot = phrase ? regex.test(phrase.toLowerCase()) : false
 
   const browser: string = result.browser.name
   const deviceType: string = result.device.type || null
@@ -32,7 +32,7 @@ export function parse(phase: string): UserAgent {
     isMobile,
     isTablet,
     isIos,
-    source:         phase,
+    source:         phrase,
     deviceVendor:   result.device.vendor || null,
     osVersion:      parseInt(result.os.version, 10),
     browserVersion: parseFloat(result.browser.version),
