@@ -53,40 +53,43 @@ export default withUserAgent(IndexPage)
 
 ### Hooks
 
+The `useUserAgent` returns `UserAgent` instance.
+
 ```tsx
 import React from 'react'
 import dynamic from 'next/dynamic'
-import { WithUserAgentProps, useUserAgent, withUserAgent } from 'next-useragent'
+import { useUserAgent } from 'next-useragent'
 
 const DesktopContent = dynamic(() => import('./desktop-content'))
 const MobileContent = dynamic(() => import('./mobile-content'))
 
-class IndexPage extends React.Component<WithUserAgentProps> {
-  render() {
-    const { ua, useragent } = this.props
-
-    return (
-      <>
-        <p>{ useragent }</p>
-        { ua.isMobile ? (
-        <MobileContent />
-        ) : (
-        <DesktopContent />
-        ) }
-      </>
-    )
+export default props => {
+  let ua;
+  if (props.uaString) {
+    ua = useUserAgent(props.uaString)
+  } else {
+    ua = useUserAgent(window.navigator.userAgent)
   }
+
+  return (
+    <div>
+      <p>{ ua.source }</p>
+      { ua.isMobile ? (
+        <MobileContent />
+      ) : (
+        <DesktopContent />
+      ) }
+    </div>
+  )
 }
 
 export function getServerSideProps(context) {
-  const ua = useUserAgent(context.req.headers['user-agent'])
-
   return {
-    props: { ua, useragent: ua.source }
+    props: {
+      uaString: context.req.headers['user-agent']
+    }
   }
 }
-
-export default withUserAgent(IndexPage)
 ```
 
 ### parsed objects
