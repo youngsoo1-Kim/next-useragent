@@ -1,5 +1,12 @@
 This is intended as an overview of the major changes.
 
+## 2.5.1
+
+Released on May 27, 2021.
+
+* Refactor the sample codes of README
+* Refactor argument name of parse function
+
 ## 2.5.0
 
 Released on May 25, 2021.
