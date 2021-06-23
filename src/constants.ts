@@ -20,6 +20,8 @@ export interface UserAgent {
   readonly isFirefox: boolean,
   readonly isSafari: boolean,
   readonly isIE: boolean,
+  readonly isEdge: boolean,
+  readonly isOpera: boolean,
   readonly isMac: boolean,
   readonly isChromeOS: boolean,
   readonly isWindows: boolean,
