@@ -1,5 +1,12 @@
 This is intended as an overview of the major changes.
 
+## 2.6.0
+
+Released on July 15, 2021.
+
+* Add support for Edge and Opera. [#367](https://github.com/tokuda109/next-useragent/pull/367) by @GustavPS
+* Bump glob-parent from 5.1.1 to 5.1.2 [#364](https://github.com/tokuda109/next-useragent/pull/364)
+
 ## 2.5.1
 
 Released on May 27, 2021.
