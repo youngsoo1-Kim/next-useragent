@@ -1,5 +1,11 @@
 This is intended as an overview of the major changes.
 
+## 2.7.0
+
+Released on September 16, 2021.
+
+* Vulnerability updates
+
 ## 2.6.0
 
 Released on July 15, 2021.
