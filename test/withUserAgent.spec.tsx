@@ -1,10 +1,9 @@
 /* tslint:disable */
 
+import Adapter from '@wojtekmaj/enzyme-adapter-react-17'
 import { expect } from 'chai'
 import { configure, mount } from 'enzyme'
 import React from 'react'
-
-const Adapter: any = require('enzyme-adapter-react-16')
 
 import { WithUserAgentProps, withUserAgent } from '../src/withUserAgent'
 
