@@ -92,6 +92,49 @@ export function getServerSideProps(context) {
 }
 ```
 
+### Parse function
+
+The `parse` returns `UserAgent` instance.
+
+This works on server side and inside conditions without ESLint throwing errors
+
+```tsx
+import React from 'react'
+import dynamic from 'next/dynamic'
+import { parse } from 'next-useragent'
+
+const DesktopContent = dynamic(() => import('./desktop-content'))
+const MobileContent = dynamic(() => import('./mobile-content'))
+
+export default props => {
+  let ua;
+  if (props.uaString) {
+    ua = parse(props.uaString)
+  } else {
+    ua = parse(window.navigator.userAgent)
+  }
+
+  return (
+    <div>
+      <p>{ ua.source }</p>
+      { ua.isMobile ? (
+        <MobileContent />
+      ) : (
+        <DesktopContent />
+      ) }
+    </div>
+  )
+}
+
+export function getServerSideProps(context) {
+  return {
+    props: {
+      uaString: context.req.headers['user-agent']
+    }
+  }
+}
+```
+
 ### parsed objects
 
 The parsed objects looks like the following:
