@@ -1,5 +1,11 @@
 This is intended as an overview of the major changes.
 
+## 2.8.0
+
+Released on September 24, 2021.
+
+* Expose parse function [#369](https://github.com/tokuda109/next-useragent/pull/369) by @carl0s-sa
+
 ## 2.7.0
 
 Released on September 16, 2021.
