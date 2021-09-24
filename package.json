@@ -1,6 +1,6 @@
 {
   "name": "next-useragent",
-  "version": "2.7.0",
+  "version": "2.8.0",
   "description": "next-useragent parses browser user-agent strings for next.js.",
   "license": "MIT",
   "readmeFilename": "README.md",
