@@ -16,7 +16,7 @@ class TestComponent extends Component<WithUserAgentProps> {
 const ua = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3763.0 Safari/537.36';
 
 describe('withUserAgent.ts', () => {
-  it('provides the ua.', () => {
+  it('should parse the useragent strings.', () => {
     const Component = withUserAgent(TestComponent);
 
     render(<Component />);
