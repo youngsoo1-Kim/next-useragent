@@ -1,38 +1,26 @@
-/* tslint:disable */
+import '@testing-library/jest-dom';
+import { render, screen } from '@testing-library/react';
+import React, { Component } from 'react';
+import { WithUserAgentProps, withUserAgent } from '../src/withUserAgent';
 
-import Adapter from '@wojtekmaj/enzyme-adapter-react-17'
-import { expect } from 'chai'
-import { configure, mount } from 'enzyme'
-import React from 'react'
-
-import { WithUserAgentProps, withUserAgent } from '../src/withUserAgent'
-
-configure({ adapter: new Adapter() })
-
-class TestComponent extends React.Component<WithUserAgentProps> {
-
+class TestComponent extends Component<WithUserAgentProps> {
   render() {
-    const { ua } = this.props
+    const { ua } = this.props;
 
     return (
-      <p>{ ua.source }</p>
+      <p data-testid="user-agent-text">{ ua?.source }</p>
     )
   }
 }
 
+const ua = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3763.0 Safari/537.36';
+
 describe('withUserAgent.ts', () => {
-
   it('provides the ua.', () => {
-    const ua = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3763.0 Safari/537.36'
-    navigator['__defineGetter__']('userAgent', () => {
-      return ua
-    })
+    const Component = withUserAgent(TestComponent);
 
-    const Component = withUserAgent(TestComponent)
+    render(<Component />);
 
-    const wrapper = mount(<Component />)
-
-    expect(wrapper.find(TestComponent).length).to.eql(1)
-    expect(wrapper.find(TestComponent).text()).to.eql(ua)
-  })
-})
+    expect(screen.getByTestId('user-agent-text')).toHaveTextContent(ua);
+  });
+});

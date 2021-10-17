@@ -1,5 +1,3 @@
-
-export { UserAgent } from './constants';
 export { useUserAgent } from './useUserAgent';
 export {
   WithUserAgentProps,
