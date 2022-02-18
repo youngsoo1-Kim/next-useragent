@@ -17,6 +17,7 @@ export interface UserAgent {
   readonly isDesktop: boolean,
   readonly isBot: boolean,
   readonly isChrome: boolean,
+  readonly isSamsungBrowser: boolean,
   readonly isFirefox: boolean,
   readonly isSafari: boolean,
   readonly isIE: boolean,
