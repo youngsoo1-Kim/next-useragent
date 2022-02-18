@@ -11,6 +11,7 @@ const mac_chrome = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/
 const bot = 'Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/MMB29P) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.96 Mobile Safari/537.36 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)'
 const windows_edge = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.114 Safari/537.36 Edg/91.0.864.54';
 const windows_opera = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.101 Safari/537.36 OPR/77.0.4054.90';
+const galaxy_samsungbrowser = 'Mozilla/5.0 (Linux; Android 11; SAMSUNG SM-F711U) AppleWebKit/537.36 (KHTML, like Gecko) SamsungBrowser/16.0 Chrome/92.0.4515.166 Mobile Safari/537.36';
 
 describe('helpers.ts', () => {
 
@@ -30,6 +31,7 @@ describe('helpers.ts', () => {
     expect(ua.isIpad).to.be.false
     expect(ua.isDesktop).to.be.true
     expect(ua.isChrome).to.be.false
+    expect(ua.isSamsungBrowser).to.be.false
     expect(ua.isFirefox).to.be.false
     expect(ua.isSafari).to.be.false
     expect(ua.isIE).to.be.false
@@ -59,6 +61,7 @@ describe('helpers.ts', () => {
     expect(ua.isIpad).to.be.false
     expect(ua.isDesktop).to.be.true
     expect(ua.isChrome).to.be.false
+    expect(ua.isSamsungBrowser).to.be.false
     expect(ua.isFirefox).to.be.false
     expect(ua.isSafari).to.be.false
     expect(ua.isIE).to.be.false
@@ -88,6 +91,7 @@ describe('helpers.ts', () => {
     expect(ua.isIpad).to.be.false
     expect(ua.isDesktop).to.be.true
     expect(ua.isChrome).to.be.false
+    expect(ua.isSamsungBrowser).to.be.false
     expect(ua.isFirefox).to.be.false
     expect(ua.isSafari).to.be.false
     expect(ua.isIE).to.be.false
@@ -117,6 +121,7 @@ describe('helpers.ts', () => {
     expect(ua.isIpad).to.be.false
     expect(ua.isDesktop).to.be.false
     expect(ua.isChrome).to.be.false
+    expect(ua.isSamsungBrowser).to.be.false
     expect(ua.isFirefox).to.be.false
     expect(ua.isSafari).to.be.false
     expect(ua.isIE).to.be.false
@@ -146,6 +151,7 @@ describe('helpers.ts', () => {
     expect(ua.isIpad).to.be.false
     expect(ua.isDesktop).to.be.false
     expect(ua.isChrome).to.be.true
+    expect(ua.isSamsungBrowser).to.be.false
     expect(ua.isFirefox).to.be.false
     expect(ua.isSafari).to.be.false
     expect(ua.isIE).to.be.false
@@ -175,6 +181,7 @@ describe('helpers.ts', () => {
     expect(ua.isIpad).to.be.false
     expect(ua.isDesktop).to.be.true
     expect(ua.isChrome).to.be.true
+    expect(ua.isSamsungBrowser).to.be.false
     expect(ua.isFirefox).to.be.false
     expect(ua.isSafari).to.be.false
     expect(ua.isIE).to.be.false
@@ -204,6 +211,7 @@ describe('helpers.ts', () => {
     expect(ua.isIpad).to.be.false
     expect(ua.isDesktop).to.be.false
     expect(ua.isChrome).to.be.true
+    expect(ua.isSamsungBrowser).to.be.false
     expect(ua.isFirefox).to.be.false
     expect(ua.isSafari).to.be.false
     expect(ua.isIE).to.be.false
@@ -228,6 +236,7 @@ describe('helpers.ts', () => {
     expect(ua.isIpad).to.be.false
     expect(ua.isDesktop).to.be.true
     expect(ua.isChrome).to.be.false
+    expect(ua.isSamsungBrowser).to.be.false
     expect(ua.isFirefox).to.be.false
     expect(ua.isSafari).to.be.false
     expect(ua.isIE).to.be.false
@@ -238,6 +247,36 @@ describe('helpers.ts', () => {
     expect(ua.isWindows).to.be.false
     expect(ua.isIos).to.be.false
     expect(ua.isAndroid).to.be.false
+    expect(ua.isBot).to.be.false
+  })
+
+  it('correctly parses galaxy_samsungbrowser', () => {
+    let ua = parse(galaxy_samsungbrowser)
+
+    expect(ua.browser).to.eql('Samsung Browser')
+    expect(ua.deviceType).to.eql('mobile')
+    expect(ua.os).to.eql('Android')
+    expect(ua.isMobile).to.be.true
+    expect(ua.isTablet).to.be.false
+    expect(ua.source).to.eql(galaxy_samsungbrowser)
+    expect(ua.deviceVendor).to.eql('Samsung')
+    expect(ua.osVersion).to.eql(11)
+    expect(ua.browserVersion).to.eql(16)
+    expect(ua.isIphone).to.be.false
+    expect(ua.isIpad).to.be.false
+    expect(ua.isDesktop).to.be.false
+    expect(ua.isChrome).to.be.false
+    expect(ua.isSamsungBrowser).to.be.true
+    expect(ua.isFirefox).to.be.false
+    expect(ua.isSafari).to.be.false
+    expect(ua.isIE).to.be.false
+    expect(ua.isEdge).to.be.false
+    expect(ua.isOpera).to.be.false
+    expect(ua.isMac).to.be.false
+    expect(ua.isChromeOS).to.be.false
+    expect(ua.isWindows).to.be.false
+    expect(ua.isIos).to.be.false
+    expect(ua.isAndroid).to.be.true
     expect(ua.isBot).to.be.false
   })
 })
