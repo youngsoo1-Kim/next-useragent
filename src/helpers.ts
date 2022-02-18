@@ -41,6 +41,7 @@ export function parse(phrase: string): UserAgent {
     isIpad:         isTablet && isIos,
     isDesktop:      !isMobile && !isTablet,
     isChrome:       browser === 'Chrome',
+    isSamsungBrowser: browser === 'Samsung Browser' || 'SamsungBrowser',
     isFirefox:      browser === 'Firefox',
     isSafari:       browser === 'Safari',
     isIE:           browser === 'IE',
